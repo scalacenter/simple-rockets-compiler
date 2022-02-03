@@ -87,12 +87,13 @@ end compile
 
 
 def compile(e: Expr): String = e match
-  case Comparison(sign, style, lhs, rhs) => s"""
-    |<Comparison op="$sign" style="$style">
+  case BinaryOp(opType, sign, style, lhs, rhs) => s"""
+    |<$opType op="$sign" style="$style">
     |  ${compile(lhs)}
     |  ${compile(rhs)}
-    |</Comparison>""".stripMargin
-  case NumConstant(x) => s"""<Constant number="$x" />"""
-  case StrConstant(x) => s"""<Constant text="$x" />"""
+    |</$opType>""".stripMargin
+  case Not(rhs) => s"""<Not style="op-not">${compile(rhs)}</Not>"""
+  case Constant(_, x: Boolean) => s"""<Constant style="$x" bool="$x" />"""
+  case Constant(tpe, x) => s"""<Constant $tpe="$x" />"""
   case CraftProperty(name, style) => s"""<CraftProperty property="$name" style="$style" />"""
 end compile

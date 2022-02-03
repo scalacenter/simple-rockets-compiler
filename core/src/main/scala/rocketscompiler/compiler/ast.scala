@@ -29,12 +29,11 @@ case class DisplayText(text: Expr) extends Instruction
 case class LogMessage(text: Expr) extends Instruction
 
 
-sealed trait Expr
-case class Comparison(sign: String, style: String, lhs: Expr, rhs: Expr) extends Expr
-case class NumConstant(x: Double) extends Expr
-case class StrConstant(txt: String) extends Expr
+sealed trait Expr  // TODO make typed
+case class BinaryOp(opType: String, sign: String, style: String, lhs: Expr, rhs: Expr) extends Expr
+case class Not(rhs: Expr) extends Expr
+case class Constant[T](style: String, x: T) extends Expr
 case class CraftProperty(name: String, style: String) extends Expr
-
 
 case class Input(name: String)
 case class Autopilot(name: String)
