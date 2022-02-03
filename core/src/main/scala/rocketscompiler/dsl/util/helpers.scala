@@ -1,4 +1,7 @@
 package rocketscompiler
+package dsl
+
+import rocketscompiler.compiler.*
 
 
 given Conversion[Double, NumConstant] = NumConstant(_)

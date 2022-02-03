@@ -1,4 +1,5 @@
 package rocketscompiler
+package compiler
 
 
 case class Program(name: String, bodies: List[Block])
@@ -29,17 +30,3 @@ case class CraftProperty(name: String, style: String) extends Expr
 
 case class Input(name: String)
 case class Autopilot(name: String)
-
-object Input:
-  val Throttle = Input("throttle")
-object Autopilot:
-  val Pitch = Autopilot("pitch")
-  val Heading = Autopilot("heading")
-object Heading:
-  val Retrograde = "Retrograde"
-object CraftProperty:
-  object Fuel:
-    val FuelInStage = CraftProperty("Fuel.FuelInStage", "prop-fuel")
-  object Altitude:
-    val ASL = CraftProperty("Altitude.ASL", "prop-altitude")
-    val AGL = CraftProperty("Altitude.AGL", "prop-altitude")

@@ -1,4 +1,5 @@
 package rocketscompiler
+package compiler
 
 
 def compile(p: Program): String =
