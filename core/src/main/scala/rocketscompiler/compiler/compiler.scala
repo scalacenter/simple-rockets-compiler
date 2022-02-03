@@ -2,16 +2,18 @@ package rocketscompiler
 package compiler
 
 
-def compile(p: Program): String =
-  val Program(name, bs) = p
-  s"""<Program name="$name">${bs.map(compile).mkString("\n")}</Program>"""
-
-def compile(b: Block): String =
-  val Block(onEvent, instructions) = b
-  s"""|<Instructions>
-      |  ${if onEvent != null then compile(onEvent) else ""}
-      |  ${instructions.map(compile).mkString("\n")}
-      |</Instructions>""".stripMargin
+def compile(x: Structural): String = x match
+  case Program(name, bs) =>
+    s"""<Program name="$name">${bs.map(compile).mkString("\n")}</Program>"""
+  case Callback(event, Block(instructions)) => s"""
+    |<Instructions>
+    |  ${compile(event)}
+    |  ${instructions.map(compile).mkString("\n")}
+    |</Instructions>""".stripMargin
+  case Block(instructions) => s"""
+    |<Instructions>
+    |  ${instructions.map(compile).mkString("\n")}
+    |</Instructions>""".stripMargin
 
 def compile(e: Event): String = e match
   case FlightStart =>

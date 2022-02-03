@@ -4,20 +4,23 @@ package dsl
 import rocketscompiler.compiler.*
 
 
+// Types
+type SRProgram = BlockBuilder ?=> Unit
+type Callback = compiler.Callback
+
 // Events
-def onStart(b: StagedBlock): Block = block(b, FlightStart)
-def onPartExplode(b: StagedBlock): Block = block(b, PartExplode)
+def onStart(b: SRProgram): Callback = callback(b, FlightStart)
+def onPartExplode(b: SRProgram): Callback = callback(b, PartExplode)
 
 // Autopilot
-extension (prop: Input) def :=(value: Expr)(using BlockBuilder) = SetInput(prop, value).push
-extension (prop: Autopilot) def :=(value: Expr)(using BlockBuilder) = SetTargetHeading(prop, value).push
-def activateStage()(using BlockBuilder) = ActivateStage.push
-def lockHeading(hdg: String)(using BlockBuilder) = LockHeading(hdg).push
+extension (prop: Input) def :=(value: Expr): SRProgram = SetInput(prop, value).stage
+extension (prop: Autopilot) def :=(value: Expr): SRProgram = SetTargetHeading(prop, value).stage
+def activateStage(): SRProgram = ActivateStage.stage
+def lockHeading(hdg: String): SRProgram = LockHeading(hdg).stage
 
 // Control Flow
-def displayText(text: Expr)(using BlockBuilder) = DisplayText(text).push
-def waitUntil(expr: Expr)(using BlockBuilder) = WaitUntil(expr).push
-def waitSeconds(expr: Expr)(using BlockBuilder) = WaitSeconds(expr).push
-def ifTrue(condition: Expr)(body: BlockBuilder ?=> Unit)(using BlockBuilder) = If(condition, block(body), Block(null, Nil)).push
-def ifElse(condition: Expr)(body: BlockBuilder ?=> Unit)(elseBody: BlockBuilder ?=> Unit)(using BlockBuilder) = If(condition, block(body), block(elseBody)).push
-
+def displayText(text: Expr): SRProgram = DisplayText(text).stage
+def waitUntil(expr: Expr): SRProgram = WaitUntil(expr).stage
+def waitSeconds(expr: Expr): SRProgram = WaitSeconds(expr).stage
+def ifTrue(condition: Expr)(body: SRProgram): SRProgram = If(condition, reify(body), Block(Nil)).stage
+def ifElse(condition: Expr)(body: SRProgram)(elseBody: SRProgram): SRProgram = If(condition, reify(body), reify(body)).stage

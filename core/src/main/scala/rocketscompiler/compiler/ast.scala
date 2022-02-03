@@ -2,8 +2,10 @@ package rocketscompiler
 package compiler
 
 
-case class Program(name: String, bodies: List[Block])
-case class Block(onEvent: Event | Null, instructions: List[Instruction])
+sealed trait Structural
+case class Program(name: String, bodies: List[Callback]) extends Structural
+case class Block(instructions: List[Instruction]) extends Structural
+case class Callback(event: Event, block: Block) extends Structural
 
 sealed trait Event
 case object FlightStart extends Event

@@ -7,21 +7,22 @@ import scala.collection.mutable.ListBuffer
 import rocketscompiler.compiler.*
 
 
-type StagedBlock = BlockBuilder ?=> Unit
-type SimpleRocketsProgram = StagedBlock
-def program(name: String, programFolder: File)(bs: Block*): Unit =
+def program(name: String, programFolder: File)(bs: Callback*): Unit =
   val p = Program(name, bs.toList)
   writeProgram(File(programFolder, s"$name.xml"), compile(p))
 
-def block(f: StagedBlock, event: Event | Null = null): Block =
-  val pa = BlockBuilder(event)
-  f(using pa)
+private[dsl] def callback(p: SRProgram, event: Event): Callback =
+  Callback(event, reify(p))
+
+class BlockBuilder:
+  private val ib = ListBuffer.empty[Instruction]
+  def pushInstruction(x: Instruction) = ib.append(x)
+  def mkBlock = Block(ib.toList)
+
+extension (i: Instruction) def stage: SRProgram =
+  (bldr: BlockBuilder) ?=> bldr.pushInstruction(i)
+
+def reify(srp: SRProgram): Block =
+  val pa = BlockBuilder()
+  srp(using pa)
   pa.mkBlock
-
-class BlockBuilder(event: Event | Null):
-  private val lb = ListBuffer.empty[Instruction]
-  def pushInstruction(x: Instruction) = lb.append(x)
-  def mkBlock = Block(event, lb.toList)
-
-extension (i: Instruction) def push(using bldr: BlockBuilder) =
-  bldr.pushInstruction(i)
