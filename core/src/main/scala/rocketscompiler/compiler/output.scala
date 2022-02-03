@@ -1,4 +1,5 @@
 package rocketscompiler
+package compiler
 
 import scala.language.unsafeNulls
 

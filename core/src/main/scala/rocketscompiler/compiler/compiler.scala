@@ -28,11 +28,11 @@ def compile(i: Instruction): String = i match
     """<ActivateStage style="activate-stage"/>"""
   case LockHeading(hdg) =>
     s"""<LockNavSphere indicatorType="$hdg" style="lock-nav-sphere"/>"""
-  case SetInput(Input(input), value) => s"""
+  case SetInput(CraftProperty(_, _, input), value) => s"""
     |<SetInput input="$input" style="set-input">
     |  ${compile(value)}
     |</SetInput>""".stripMargin
-  case SetTargetHeading(Autopilot(hdg), value) => s"""
+  case SetTargetHeading(CraftProperty(_, _, hdg), value) => s"""
     |<SetTargetHeading property="$hdg" style="set-heading">
     |  ${compile(value)}
     |</SetTargetHeading>""".stripMargin
@@ -95,5 +95,5 @@ def compile(e: Expr): String = e match
   case Not(rhs) => s"""<Not style="op-not">${compile(rhs)}</Not>"""
   case Constant(_, x: Boolean) => s"""<Constant style="$x" bool="$x" />"""
   case Constant(tpe, x) => s"""<Constant $tpe="$x" />"""
-  case CraftProperty(name, style) => s"""<CraftProperty property="$name" style="$style" />"""
+  case CraftProperty(name, style, _) => s"""<CraftProperty property="$name" style="$style" />"""
 end compile

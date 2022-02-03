@@ -5,11 +5,11 @@ import rocketscompiler.compiler.*
 
 
 // Inputs
-val Throttle = Input("throttle")
+val Throttle = CraftProperty("Input.Throttle", "prop-input", "throttle")
 
 // Autopilot
-val Pitch = Autopilot("pitch")
-val Heading = Autopilot("heading")
+val Pitch = CraftProperty("Heading.Pitch", "prop-heading", "pitch")  // TODO UNTESTED in output position
+val Heading = CraftProperty("Heading.Heading", "prop-heading", "heading")  // TODO UNTESTED in output position
 
 // Heading
 val Retrograde = "Retrograde"

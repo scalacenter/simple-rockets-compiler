@@ -7,14 +7,13 @@ import rocketscompiler.compiler.*
 // Types
 type SRProgram = BlockBuilder ?=> Unit
 type Callback = compiler.Callback
+type Expr = compiler.Expr
 
 // Events
 def onStart(b: SRProgram): Callback = callback(b, FlightStart)
 def onPartExplode(b: SRProgram): Callback = callback(b, PartExplode)
 
 // Autopilot
-extension (prop: Input) def :=(value: Expr): SRProgram = SetInput(prop, value).stage
-extension (prop: Autopilot) def :=(value: Expr): SRProgram = SetTargetHeading(prop, value).stage
 def activateStage(): SRProgram = ActivateStage.stage
 def lockHeading(hdg: String): SRProgram = LockHeading(hdg).stage
 

@@ -14,8 +14,8 @@ case object PartExplode extends Event
 sealed trait Instruction
 case object ActivateStage extends Instruction
 case class LockHeading(hdg: String) extends Instruction
-case class SetInput(input: Input, value: Expr) extends Instruction
-case class SetTargetHeading(hdg: Autopilot, value: Expr) extends Instruction
+case class SetInput(input: CraftProperty, value: Expr) extends Instruction
+case class SetTargetHeading(hdg: CraftProperty, value: Expr) extends Instruction
 
 // Control flow
 case class WaitUntil(value: Expr) extends Instruction
@@ -33,7 +33,4 @@ sealed trait Expr  // TODO make typed
 case class BinaryOp(opType: String, sign: String, style: String, lhs: Expr, rhs: Expr) extends Expr
 case class Not(rhs: Expr) extends Expr
 case class Constant[T](style: String, x: T) extends Expr
-case class CraftProperty(name: String, style: String) extends Expr
-
-case class Input(name: String)
-case class Autopilot(name: String)
+case class CraftProperty(name: String, style: String, setterName: String = "") extends Expr
