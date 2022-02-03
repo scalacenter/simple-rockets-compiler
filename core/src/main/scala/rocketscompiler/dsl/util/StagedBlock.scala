@@ -8,6 +8,7 @@ import rocketscompiler.compiler.*
 
 
 type StagedBlock = BlockBuilder ?=> Unit
+type SimpleRocketsProgram = StagedBlock
 def program(name: String, programFolder: File)(bs: Block*): Unit =
   val p = Program(name, bs.toList)
   writeProgram(File(programFolder, s"$name.xml"), compile(p))

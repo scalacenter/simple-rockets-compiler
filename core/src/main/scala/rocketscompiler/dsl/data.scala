@@ -15,7 +15,7 @@ val Heading = Autopilot("heading")
 val Retrograde = "Retrograde"
 
 object Fuel:
-  val FuelInStage = CraftProperty("Fuel.FuelInStage", "prop-fuel")
+  val InStage = CraftProperty("Fuel.FuelInStage", "prop-fuel")
 
 object Altitude:
   val ASL = CraftProperty("Altitude.ASL", "prop-altitude")
