@@ -14,20 +14,18 @@ def compile(x: Structural): String = x match
     |<Instructions>
     |  ${instructions.map(compile).mkString("\n")}
     |</Instructions>""".stripMargin
+end compile
 
 def compile(e: Event): String = e match
   case FlightStart =>
     """<Event event="FlightStart" style="flight-start" />"""
   case PartExplode =>
     """<Event event="PartExplode" style="part-explode" />"""
+end compile
 
 def compile(i: Instruction): String = i match
   case ActivateStage =>
     """<ActivateStage style="activate-stage"/>"""
-  case WaitUntil(e) =>
-    s"""<WaitUntil style="wait-until">${compile(e)}</WaitUntil>"""
-  case WaitSeconds(e) =>
-    s"""<WaitSeconds style="wait-seconds">${compile(e)}</WaitSeconds>"""
   case LockHeading(hdg) =>
     s"""<LockNavSphere indicatorType="$hdg" style="lock-nav-sphere"/>"""
   case SetInput(Input(input), value) => s"""
@@ -38,6 +36,32 @@ def compile(i: Instruction): String = i match
     |<SetTargetHeading property="$hdg" style="set-heading">
     |  ${compile(value)}
     |</SetTargetHeading>""".stripMargin
+
+  // Control Flow
+  case WaitUntil(e) =>
+    s"""<WaitUntil style="wait-until">${compile(e)}</WaitUntil>"""
+  case WaitSeconds(e) =>
+    s"""<WaitSeconds style="wait-seconds">${compile(e)}</WaitSeconds>"""
+  case Repeat(times, body) => s"""
+    |<Repeat style="repeat">
+    |  ${compile(times)}
+    |  ${compile(body)}
+    |</Repeat>""".stripMargin
+  case While(condition, body) => s"""
+    |<While style="while">
+    |  ${compile(condition)}
+    |  ${compile(body)}
+    |</While>""".stripMargin
+  case ForLoop(varName, from, to, by, body) => s"""
+    |<For var="$varName" style="for">
+    |  ${compile(from)}
+    |  ${compile(to)}
+    |  ${compile(by)}
+    |  ${compile(body)}
+    |</For>
+
+    """.stripMargin
+  case Break => """<Break style="break" />"""
   case If(condition, body, elseBody) =>
     val elseCompiled = if elseBody.instructions.isEmpty then "" else s"""
       |<ElseIf style="else">
@@ -55,7 +79,11 @@ def compile(i: Instruction): String = i match
     |  ${compile(text)}
     |  <Constant number="7" />
     |</DisplayMessage>""".stripMargin
-
+  case LogMessage(text) => s"""
+    |<LogMessage style="log">
+    |  ${compile(text)}
+    |</LogMessage>""".stripMargin
+end compile
 
 
 def compile(e: Expr): String = e match
@@ -67,3 +95,4 @@ def compile(e: Expr): String = e match
   case NumConstant(x) => s"""<Constant number="$x" />"""
   case StrConstant(x) => s"""<Constant text="$x" />"""
   case CraftProperty(name, style) => s"""<CraftProperty property="$name" style="$style" />"""
+end compile
