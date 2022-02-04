@@ -14,30 +14,38 @@ def ascentProfile: SRProgram =
     Throttle := 1
     displayText("LIFTOFF!!!")
 
-  def ascentLeg(startAltitude: Expr, pitch: Expr): SRProgram =
+  def gravityTurn(startAltitude: Double, endAltitude: Double, startPitch: Double, endPitch: Double): SRProgram =
     waitUntil(Altitude.ASL >= startAltitude)
-    Pitch := pitch
+    displayText("Starting the gravity turn")
+    whileLoop(Altitude.ASL < endAltitude) {
+      val fractionOfPath = (Altitude.ASL - startAltitude) / (endAltitude - startAltitude)
+      val pitchDifference = endPitch - startPitch
+      Pitch := startPitch + fractionOfPath * pitchDifference
+    }
 
-  def coasting(targetApo: Expr): SRProgram =
+  def coasting(targetApo: Double): SRProgram =
     waitUntil(Orbit.Apoapsis >= targetApo)
+    displayText("Coasting towards apoapsis")
     Throttle := 0
 
-  def periapsisRiseManeuver(targetOrbitalVelicity: Expr, targetPeriapsis: Expr): SRProgram =
+  def periapsisRiseManeuver(targetOrbitalVelicity: Double, targetPeriapsis: Double,
+      maxTimeToApo: Double, minTimeToApo: Double, correctionThrottle: Double): SRProgram =
     val maxStageAcceleration = Performance.StageDeltaV / Performance.BurnTime
     val burnDeltaV = targetOrbitalVelicity - Velocity.OrbitVelocity
     val burnTime = burnDeltaV / maxStageAcceleration
     val startBurnAt = burnTime / 2
 
     waitUntil(Orbit.TimeToApoapsis <= startBurnAt)
+    displayText("Rising periapsis")
     Pitch := 0
     Throttle := 1
 
     whileLoop(Orbit.Periapsis < targetPeriapsis) {
-      ifTrue(Orbit.TimeToApoapsis > 60 && Throttle =!= 0) {
+      ifTrue(Orbit.TimeToApoapsis > maxTimeToApo && Throttle =!= 0) {
         Throttle := 0
       }
-      ifTrue(Orbit.TimeToApoapsis < 10 && Throttle =!= 1) {
-        Throttle := 0.2
+      ifTrue(Orbit.TimeToApoapsis < minTimeToApo && Throttle =!= 1) {
+        Throttle := correctionThrottle
       }
     }
     Throttle := 0
@@ -45,11 +53,15 @@ def ascentProfile: SRProgram =
 
   countdown
   liftOff
-  ascentLeg(startAltitude = 1000, pitch = 70)
-  ascentLeg(startAltitude = 3000, pitch = 50)
-  ascentLeg(startAltitude = 8000, pitch = 25)
+  gravityTurn(
+    startAltitude = 500, startPitch = 80,
+    endAltitude = 8000, endPitch = 25
+  )
   coasting(targetApo = 70000)
-  periapsisRiseManeuver(targetOrbitalVelicity = 3600, targetPeriapsis = 70000)
+  periapsisRiseManeuver(
+    targetOrbitalVelicity = 3420, targetPeriapsis = 70000,
+    maxTimeToApo = 60, minTimeToApo = 10, correctionThrottle = 0.2,
+  )
 end ascentProfile
 
 def engineStaging: SRProgram =
@@ -58,7 +70,7 @@ def engineStaging: SRProgram =
 end engineStaging
 
 @main def main =
-  program("Orbit", programFolder)(
+  program("Orbit")(
     onStart { ascentProfile },
     onStart { engineStaging },
   )
