@@ -7,7 +7,7 @@ import scala.collection.mutable.ListBuffer
 import rocketscompiler.compiler.*
 
 
-def program(name: String, programFolder: File)(bs: Callback*): Unit =
+def program(name: String, programFolder: File = flightProgramsFolder)(bs: Callback*): Unit =
   val p = Program(name, bs.toList)
   writeProgram(File(programFolder, s"$name.xml"), compile(p))
 
