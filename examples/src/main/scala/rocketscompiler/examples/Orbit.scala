@@ -31,7 +31,7 @@ def ascentProfile: SRProgram =
   def periapsisRiseManeuver(targetOrbitalVelicity: Double, targetPeriapsis: Double,
       maxTimeToApo: Double, minTimeToApo: Double, correctionThrottle: Double): SRProgram =
     val maxStageAcceleration = Performance.StageDeltaV / Performance.BurnTime
-    val burnDeltaV = targetOrbitalVelicity - Velocity.OrbitVelocity
+    val burnDeltaV = targetOrbitalVelicity - Velocity.Orbit
     val burnTime = burnDeltaV / maxStageAcceleration
     val startBurnAt = burnTime / 2
 

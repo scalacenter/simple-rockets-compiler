@@ -30,6 +30,12 @@ object Orbit:
 object Performance:
   val StageDeltaV = CraftProperty("Performance.StageDeltaV", "prop-performance")
   val BurnTime = CraftProperty("Performance.BurnTime", "prop-performance")
+  val Mass = CraftProperty("Performance.Mass", "prop-performance")
+  val DryMass = CraftProperty("Performance.DryMass", "prop-performance")
+  val FuelMass = CraftProperty("Performance.FuelMass", "prop-performance")
+  val MaxActiveEngineThrust = CraftProperty("Performance.MaxActiveEngineThrust", "prop-performance")
+  val TWR = CraftProperty("Performance.TWR", "prop-performance")
 
 object Velocity:
-  val OrbitVelocity = CraftProperty("Vel.OrbitVelocity", "prop-velocity")
+  val Orbit = CraftProperty("Vel.OrbitVelocity", "prop-velocity")
+  val Surface = CraftProperty("Vel.SurfaceVelocity", "prop-velocity")
