@@ -12,12 +12,12 @@ import javax.xml.transform.stream.{ StreamResult, StreamSource }
 import java.io.*
 
 
-def writeProgram(file: File, program: String): Unit =
+private[rocketscompiler] def writeProgram(file: File, program: String): Unit =
   val docBldr = DocumentBuilderFactory.newInstance().newDocumentBuilder()
   val progDoc: Document = docBldr.parse(InputSource(StringReader(program)))
   writeXml(progDoc, file)
 
-def writeXml(doc: Document, file: File): Unit =
+private[rocketscompiler] def writeXml(doc: Document, file: File): Unit =
   val transformer = TransformerFactory.newInstance().newTransformer()
   transformer.setOutputProperty(OutputKeys.INDENT, "yes")
   transformer.setOutputProperty(OutputKeys.STANDALONE, "no")

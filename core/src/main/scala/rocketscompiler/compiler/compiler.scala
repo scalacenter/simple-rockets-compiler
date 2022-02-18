@@ -2,7 +2,7 @@ package rocketscompiler
 package compiler
 
 
-def compile(x: Structural): String = x match
+private[rocketscompiler] def compile(x: Structural): String = x match
   case Program(name, bs) =>
     s"""<Program name="$name">${bs.map(compile).mkString("\n")}</Program>"""
   case Callback(event, Block(instructions)) => s"""
@@ -16,14 +16,14 @@ def compile(x: Structural): String = x match
     |</Instructions>""".stripMargin
 end compile
 
-def compile(e: Event): String = e match
+private[rocketscompiler] def compile(e: Event): String = e match
   case FlightStart =>
     """<Event event="FlightStart" style="flight-start" />"""
   case PartExplode =>
     """<Event event="PartExplode" style="part-explode" />"""
 end compile
 
-def compile(i: Instruction): String = i match
+private[rocketscompiler] def compile(i: Instruction): String = i match
   case ActivateStage =>
     """<ActivateStage style="activate-stage"/>"""
   case LockHeading(hdg) =>
@@ -85,8 +85,7 @@ def compile(i: Instruction): String = i match
     |</LogMessage>""".stripMargin
 end compile
 
-
-def compile(e: Expr): String = e match
+private[rocketscompiler] def compile(e: Expr): String = e match
   case BinaryOp(opType, sign, style, lhs, rhs) => s"""
     |<$opType op="$sign" style="$style">
     |  ${compile(lhs)}

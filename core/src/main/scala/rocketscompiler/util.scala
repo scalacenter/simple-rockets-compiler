@@ -3,7 +3,7 @@ package rocketscompiler
 import java.io.File
 
 
-def flightProgramsFolder: File =
+private[rocketscompiler] def flightProgramsFolder: File =
   sys.props("os.name") match
     case "Mac OS X" =>
       val homedir = sys.props("user.home")

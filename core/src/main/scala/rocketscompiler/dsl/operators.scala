@@ -28,6 +28,7 @@ extension (x: Expr)
   def ^(y: Expr) = BinaryOp("BinaryOp", "^", "op-exp", x, y)
   def %(y: Expr) = BinaryOp("BinaryOp", "%", "op-mod", x, y)
 
+extension(x: CraftProperty)
   def :=(y: Expr): SRProgram = x match
     case x@CraftProperty(name, _, _) if name.startsWith("Input") => SetInput(x, y).stage
     case x@CraftProperty(name, _, _) if name.startsWith("Heading") => SetTargetHeading(x, y).stage

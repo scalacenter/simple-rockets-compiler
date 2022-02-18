@@ -19,15 +19,15 @@ def programOnStart(name: String, programFolder: File = flightProgramsFolder)(p: 
 private[dsl] def callback(p: SRProgram, event: Event): Callback =
   Callback(event, reify(p))
 
-class BlockBuilder:
+private[dsl] class BlockBuilder:
   private val ib = ListBuffer.empty[Instruction]
   def pushInstruction(x: Instruction) = ib.append(x)
   def mkBlock = Block(ib.toList)
 
-extension (i: Instruction) def stage: SRProgram =
+extension (i: Instruction) private[dsl] def stage: SRProgram =
   (bldr: BlockBuilder) ?=> bldr.pushInstruction(i)
 
-def reify(srp: SRProgram): Block =
+private[dsl] def reify(srp: SRProgram): Block =
   val pa = BlockBuilder()
   srp(using pa)
   pa.mkBlock
