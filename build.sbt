@@ -15,7 +15,8 @@ def commonSettings = List(
 
   testFrameworks += new TestFramework("utest.runner.Framework"),
 
-  Compile / doc / scalacOptions += "-groups",
+  Compile / doc / scalacOptions ++= List(
+    "-groups", "-comment-syntax", "wiki"),
 
   credentials += Credentials(Path.userHome / ".sbt" / ".credentials"),
 
