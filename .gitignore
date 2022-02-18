@@ -17,5 +17,6 @@ project/boot/
 .cache
 .bsp
 .metals
+.scala-build
 
 .DS_Store

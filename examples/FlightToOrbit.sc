@@ -1,8 +1,10 @@
-package rocketscompiler.examples
+//> using scala "3.1.1"
+import $dep.`com.akmetiuk::simple-rockets-compiler:0.1.0`, rocketscompiler.dsl.{ *, given }
 
-import rocketscompiler.dsl.{ *, given }
-
-
+/**
+ * This example is designed to put a simple spacecraft with up to two stages into a 70km Droo orbit,
+ * given enough delta-v for the operation.
+ */
 def ascentProfile: SRProgram =
   def countdown: SRProgram =
     for i <- 5 to 1 by -1 do
@@ -69,8 +71,7 @@ def engineStaging: SRProgram =
   activateStage()
 end engineStaging
 
-@main def main =
-  program("Orbit")(
-    onStart { ascentProfile },
-    onStart { engineStaging },
-  )
+program("FlightToOrbit")(
+  onStart { ascentProfile },
+  onStart { engineStaging },
+)

@@ -1,24 +1,30 @@
 # Simple Rockets 2 Compiler
 [![javadoc](https://javadoc.io/badge2/com.akmetiuk/simple-rockets-compiler_3/javadoc.svg)](https://javadoc.io/doc/com.akmetiuk/simple-rockets-compiler_3)
 
-This compiler allows you to define [Simple Rockets 2](https://www.simplerockets.com/) spacecraft flight programs using a [Scala 3](https://www.scala-lang.org/) DSL. This is a working prototype. Here's how to use it at its current stage of development:
+This compiler allows you to define [Simple Rockets 2](https://www.simplerockets.com/) spacecraft flight programs using a [Scala 3](https://www.scala-lang.org/) DSL.
 
-## Compiling Examples
-All the commands below are to be executed from a command line of your OS.
+## Prerequisites
+1. [Simple Rockets 2](https://www.simplerockets.com/) installed
+2. [Scala CLI](https://scala-cli.virtuslab.org/) installed
+3. Basic command line skills
 
-1. Install [sbt](https://www.scala-sbt.org/) and [git](https://git-scm.com/)
-2. Clone the repo: `git clone https://github.com/anatoliykmetyuk/simple-rockets-compiler.git`
-3. Run `sbt` from the repo – this will open an interactive console
-4. Run `project examples` – the repo contains two projects, one with the core functionality and another with example Simple Rockets 2 programs
-5. Run `run` to compile the sample [Orbit](examples/src/main/scala/rocketscompiler/examples/Orbit.scala) program and write it to Simple Rockets 2 under the name Orbit
+## Usage
+Create a new file `Hello.sc` with the following content:
 
-## Loading Example Program to Simple Rockets 2 Craft
-1. From Simple Rockets 2, open any craft
-2. Click the menu button at the top-left of the screen, click "Edit Program"
-3. From the program editor, click the menu button again, select "Load Program"
-4. Find the "Orbit" program and load it
+```scala
+//> using scala "3.1.1"
+import $dep.`com.akmetiuk::simple-rockets-compiler:0.1.0`, rocketscompiler.dsl.{ *, given }
 
-The example program in question is designed to put a simple spacecraft with up to two stages into a 70km Droo orbit, given enough delta-v for the operation.
+programOnStart("Hello") {
+  displayText("Liftoff!")
+  activateStage()
+  Throttle := 1
+}
+```
+
+Run `scala-cli Hello.sc`. This will convert the script into the Simple Rockets 2 program and write it to the game.
+
+Next, from the game, open whatever craft you want to execute the project on. Click the menu button at the top-left of the screen, click "Edit Program". From the program editor, click the menu button again, select "Load Program". Find the "Hello" program and load it.
 
 ## Documentation
-TODO
+See scaladocs [here](https://javadoc.io/badge2/com.akmetiuk/simple-rockets-compiler_3/javadoc.svg)](https://javadoc.io/doc/com.akmetiuk/simple-rockets-compiler_3).
