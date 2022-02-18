@@ -9,7 +9,9 @@ import rocketscompiler.compiler.*
 
 def program(name: String, programFolder: File = flightProgramsFolder)(bs: Callback*): Unit =
   val p = Program(name, bs.toList)
-  writeProgram(File(programFolder, s"$name.xml"), compile(p))
+  val targetFile = File(programFolder, s"$name.xml")
+  writeProgram(targetFile, compile(p))
+  println(s"Written $targetFile")
 
 def programOnStart(name: String, programFolder: File = flightProgramsFolder)(p: SRProgram): Unit =
   program(name, programFolder)(onStart(p))

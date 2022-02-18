@@ -1,4 +1,6 @@
 # Simple Rockets 2 Compiler
+[![javadoc](https://javadoc.io/badge2/com.akmetiuk/simple-rockets-compiler_3/javadoc.svg)](https://javadoc.io/doc/com.akmetiuk/simple-rockets-compiler_3)
+
 This compiler allows you to define [Simple Rockets 2](https://www.simplerockets.com/) spacecraft flight programs using a [Scala 3](https://www.scala-lang.org/) DSL. This is a working prototype. Here's how to use it at its current stage of development:
 
 ## Compiling Examples
