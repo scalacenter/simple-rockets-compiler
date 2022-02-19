@@ -32,4 +32,4 @@ Sometimes when you compile a script as described above, you may not find the pro
 Once you have the directory, you can explicitly specify it when writin a program as follows: `program("Hello", java.io.File("/path/to/your/dir"))`
 
 ## Documentation
-See scaladocs [here](https://javadoc.io/doc/com.akmetiuk/simple-rockets-compiler_3/latest/rocketscompiler.html).
+The scripting language is still a work in progress, so not everything is ported yet from the game's built-in language. See the complete list of what's available [here](https://javadoc.io/doc/com.akmetiuk/simple-rockets-compiler_3/latest/rocketscompiler.html).
