@@ -16,7 +16,7 @@ def ascentProfile: SRProgram =
     Throttle := 1
     displayText("LIFTOFF!!!")
 
-  def gravityTurn(startAltitude: Double, endAltitude: Double, startPitch: Double, endPitch: Double): SRProgram =
+  def gradualTurn(startAltitude: Double, endAltitude: Double, startPitch: Double, endPitch: Double): SRProgram =
     waitUntil(Altitude.ASL >= startAltitude)
     displayText("Starting the gravity turn")
     whileLoop(Altitude.ASL < endAltitude) {
@@ -55,7 +55,7 @@ def ascentProfile: SRProgram =
 
   countdown
   liftOff
-  gravityTurn(
+  gradualTurn(
     startAltitude = 500, startPitch = 80,
     endAltitude = 8000, endPitch = 25
   )

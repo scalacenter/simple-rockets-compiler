@@ -15,7 +15,7 @@ Create a new file `Hello.sc` with the following content:
 //> using scala "3.1.1"
 import $dep.`com.akmetiuk::simple-rockets-compiler:0.1.1`, rocketscompiler.{ *, given }
 
-programOnStart("Hello") {
+program("Hello") {
   displayText("Liftoff!")
   activateStage()
   Throttle := 1
@@ -25,6 +25,13 @@ programOnStart("Hello") {
 Run `scala-cli Hello.sc`. This will convert the script into the Simple Rockets 2 program and write it to the game.
 
 Next, from the game, open whatever craft you want to execute the project on. Click the menu button at the top-left of the screen, click "Edit Program". From the program editor, click the menu button again, select "Load Program". Find the "Hello" program and load it.
+
+## Possible Issues
+Sometimes when you compile a script as described above, you may not find the program in Simple Rockets. Chances are the DSL failed at detecting the directory where Simple Rockets looks for programs correctly. If that is the case, you need to manually find out the location (e.g. described [here](https://steamcommunity.com/app/870200/discussions/0/1750106661716039638/)). Then figure out where the game store the flight programs in that directory, by default should be `UserData/FlightPrograms/` relative to the game directory.
+
+Once you have the directory, you can explicitly specify it when writin a program as follows: `program("Hello", java.io.File("/path/to/your/dir"))`
+
+
 
 ## Documentation
 See scaladocs [here](https://javadoc.io/badge2/com.akmetiuk/simple-rockets-compiler_3/javadoc.svg)](https://javadoc.io/doc/com.akmetiuk/simple-rockets-compiler_3).
