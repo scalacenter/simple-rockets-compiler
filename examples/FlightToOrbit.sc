@@ -18,7 +18,7 @@ def ascentProfile: SRProgram =
 
   def gradualTurn(startAltitude: Double, endAltitude: Double, startPitch: Double, endPitch: Double): SRProgram =
     waitUntil(Altitude.ASL >= startAltitude)
-    displayText("Starting the gravity turn")
+    displayText("Starting the gradual turn")
     whileLoop(Altitude.ASL < endAltitude) {
       val fractionOfPath = (Altitude.ASL - startAltitude) / (endAltitude - startAltitude)
       val pitchDifference = endPitch - startPitch

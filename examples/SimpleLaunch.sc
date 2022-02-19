@@ -10,5 +10,7 @@ program("Simple Launch") {
 
   // Launch sequence
   activateStage() // Start the engine
-  Throttle := 1  // Set engine power to 100%
+  Throttle := 1   // Set engine power to 100%
+  Pitch := 30     // Tilt the rocket so that it is 30 degrees to the surface
+  Heading := 180  // Fly south
 }
