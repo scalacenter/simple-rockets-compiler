@@ -6,7 +6,8 @@ import rocketscompiler.compiler.*
 // Types
 /**
  * A block of statements that will be written to the game
- * as a program. Primitive statements of this type are provided by this package.
+ * as a program. Primitive statements of this type, such as `activateStage()` to start the engine
+ * or assignment statements such as `Thruottle := 1`, are provided by this package.
  * You can group them in blocks if you explicitly type those blocks as `SRProgram`.
  * For example:
  *
@@ -52,8 +53,8 @@ def onPartExplode(b: SRProgram): Callback = callback(b, PartExplode)
  * @group Autopilot */
 def activateStage(): SRProgram = ActivateStage.stage
 /**
- * Possible values for `hdg` are `Retrograde` or `Prograde` provided as constants by this package.
- * `Retrograde` means "back" and `Prograde` means "forward" (technically those directions are
+ * Possible values for `hdg` are [[Retrograde]] or [[Prograde]].
+ * [[Retrograde]] means "back" and [[Prograde]] means "forward" (technically those directions are
  * defined by the current velocity vector of the spacecraft).
  * @group Autopilot */
 def lockHeading(hdg: String): SRProgram = LockHeading(hdg).stage
@@ -71,7 +72,10 @@ def waitSeconds(expr: Expr): SRProgram = WaitSeconds(expr).stage
 def repeat(times: Expr)(body: SRProgram): SRProgram = Repeat(times, reify(body)).stage
 /** @group Control */
 def whileLoop(condition: Expr)(body: SRProgram): SRProgram = While(condition, reify(body)).stage
-/** @group Control */
+/**
+ * Custom variables are not implemented yet in this library, so for the time being there is no way to use
+ * `varName` from the `forLoop`, and the loop is thus equivalent to `repeat`.
+ * @group Control */
 def forLoop(varName: String, from: Expr, to: Expr, by: Expr)(body: SRProgram): SRProgram = ForLoop(varName, from, to, by, reify(body)).stage
 /**
  * Immediately exit the loop where `break()` is called from.

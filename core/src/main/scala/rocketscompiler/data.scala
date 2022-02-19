@@ -20,7 +20,7 @@ val Throttle: AssignableCraftProperty = CraftProperty("Input.Throttle", "prop-in
  * @group Inputs */
 val Pitch: AssignableCraftProperty = CraftProperty("Heading.Pitch", "prop-heading", "pitch")  // TODO UNTESTED in output position
 /**
- * Heading in degrees, 0 means Norse, 90 – East etc.
+ * Heading in degrees, 0 means North, 90 – East etc.
  *
  * @group Inputs */
 val Heading: AssignableCraftProperty = CraftProperty("Heading.Heading", "prop-heading", "heading")  // TODO UNTESTED in output position

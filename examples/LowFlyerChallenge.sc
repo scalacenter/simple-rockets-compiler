@@ -1,12 +1,12 @@
 //> using scala "3.1.1"
-import $dep.`com.akmetiuk::simple-rockets-compiler:0.1.0`, rocketscompiler.dsl.{ *, given }
+import $dep.`com.akmetiuk::simple-rockets-compiler:0.1.1`, rocketscompiler.{ *, given }
 
 /**
  * This example is designed to beat the Low Flyer built into game.
  * The objective of the challenge is to fly as far as possible on a single stage
  * while not exceeding 5km above sea level in altitude.
  */
-programOnStart("Low Flyer") {
+program("Low Flyer") {
   for i <- 5 to 1 by -1 do
     displayText(i)
     waitSeconds(1)

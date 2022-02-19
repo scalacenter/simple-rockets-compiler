@@ -8,11 +8,11 @@ import rocketscompiler.compiler.*
 
 /**
  * Use this entrypoint if you have more than one event you'd like to react to.
- * This entrypoint can be useful e.g. if you want to start programs in parallel at the start of the game.
+ * This entrypoint can be useful e.g. if you want to start several programs in parallel at the start of the game.
  * In this situation, you can use it as follows:
  *
  * {{{
- *  program("Foo")(
+ *  callbacks("Foo")(
  *    onStart { program1 },
  *    onStart { program2 }
  *  }
@@ -20,7 +20,7 @@ import rocketscompiler.compiler.*
  *
  * @param name the name under which the program will be written to the game.
  * @group Entrypoint */
-def program(name: String, programFolder: File = flightProgramsFolder)(bs: Callback*): Unit =
+def callbacks(name: String, programFolder: File = flightProgramsFolder)(bs: Callback*): Unit =
   val p = Program(name, bs.toList)
   val targetFile = File(programFolder, s"$name.xml")
   writeProgram(targetFile, compile(p))
@@ -36,8 +36,8 @@ def program(name: String, programFolder: File = flightProgramsFolder)(bs: Callba
  *
  * @param name the name under which the program will be written to the game.
  * @group Entrypoint */
-def programOnStart(name: String, programFolder: File = flightProgramsFolder)(p: SRProgram): Unit =
-  program(name, programFolder)(onStart(p))
+def program(name: String, programFolder: File = flightProgramsFolder)(p: SRProgram): Unit =
+  callbacks(name, programFolder)(onStart(p))
 
 private[rocketscompiler] def callback(p: SRProgram, event: Event): Callback =
   Callback(event, reify(p))

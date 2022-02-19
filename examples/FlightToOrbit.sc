@@ -1,5 +1,5 @@
 //> using scala "3.1.1"
-import $dep.`com.akmetiuk::simple-rockets-compiler:0.1.0`, rocketscompiler.{ *, given }
+import $dep.`com.akmetiuk::simple-rockets-compiler:0.1.1`, rocketscompiler.{ *, given }
 
 /**
  * This example is designed to put a simple spacecraft with up to two stages into a 70km Droo orbit,
@@ -71,7 +71,7 @@ def engineStaging: SRProgram =
   activateStage()
 end engineStaging
 
-program("FlightToOrbit")(
+callbacks("FlightToOrbit")(
   onStart { ascentProfile },
   onStart { engineStaging },
 )

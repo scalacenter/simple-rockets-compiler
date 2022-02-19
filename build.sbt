@@ -1,7 +1,7 @@
 val scala3Version = "3.1.1"
 
 def commonSettings = List(
-  version := "0.1.0",
+  version := "0.1.1",
 
   scalaVersion := scala3Version,
 

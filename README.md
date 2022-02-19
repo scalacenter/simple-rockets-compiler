@@ -13,7 +13,7 @@ Create a new file `Hello.sc` with the following content:
 
 ```scala
 //> using scala "3.1.1"
-import $dep.`com.akmetiuk::simple-rockets-compiler:0.1.0`, rocketscompiler.dsl.{ *, given }
+import $dep.`com.akmetiuk::simple-rockets-compiler:0.1.1`, rocketscompiler.{ *, given }
 
 programOnStart("Hello") {
   displayText("Liftoff!")
