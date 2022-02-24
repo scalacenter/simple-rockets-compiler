@@ -29,8 +29,9 @@ private[rocketscompiler] case class DisplayText(text: Expr) extends Instruction
 private[rocketscompiler] case class LogMessage(text: Expr) extends Instruction
 
 
-private[rocketscompiler] sealed trait Expr  // TODO make typed
-private[rocketscompiler] case class BinaryOp(opType: String, sign: String, style: String, lhs: Expr, rhs: Expr) extends Expr
-private[rocketscompiler] case class Not(rhs: Expr) extends Expr
-private[rocketscompiler] case class Constant[T](style: String, x: T) extends Expr
-private[rocketscompiler] case class CraftProperty(name: String, style: String, setterName: String = "") extends Expr
+sealed trait Expr  // TODO make typed
+case class BinaryOp(opType: String, sign: String, style: String, lhs: Expr, rhs: Expr) extends Expr
+case class Not(rhs: Expr) extends Expr
+case class Constant[T](style: String, x: T) extends Expr
+case class CraftProperty(name: String, style: String, setterName: String = "") extends Expr
+case class VarRef(variableName: String, list: Boolean, local: Boolean) extends Expr

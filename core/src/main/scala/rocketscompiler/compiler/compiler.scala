@@ -95,4 +95,5 @@ private[rocketscompiler] def compile(e: Expr): String = e match
   case Constant(_, x: Boolean) => s"""<Constant style="$x" bool="$x" />"""
   case Constant(tpe, x) => s"""<Constant $tpe="$x" />"""
   case CraftProperty(name, style, _) => s"""<CraftProperty property="$name" style="$style" />"""
+  case VarRef(name, list, local) => s"""<Variable list="${list}" local="${local}" variableName="${name}" />"""
 end compile

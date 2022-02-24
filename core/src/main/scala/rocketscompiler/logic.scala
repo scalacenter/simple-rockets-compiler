@@ -76,7 +76,10 @@ def whileLoop(condition: Expr)(body: SRProgram): SRProgram = While(condition, re
  * Custom variables are not implemented yet in this library, so for the time being there is no way to use
  * `varName` from the `forLoop`, and the loop is thus equivalent to `repeat`.
  * @group Control */
-def forLoop(varName: String, from: Expr, to: Expr, by: Expr)(body: SRProgram): SRProgram = ForLoop(varName, from, to, by, reify(body)).stage
+def forLoop(varName: String, from: Expr, to: Expr, by: Expr)(body: VarRef => SRProgram): SRProgram =
+  val varRef = VarRef(varName, list=false, local=true)
+  ForLoop(varName, from, to, by, reify(body(varRef))).stage
+
 /**
  * Immediately exit the loop where `break()` is called from.
  * @group Control */
