@@ -25,6 +25,20 @@ val Pitch: AssignableCraftProperty = CraftProperty("Heading.Pitch", "prop-headin
  * @group Inputs */
 val Heading: AssignableCraftProperty = CraftProperty("Heading.Heading", "prop-heading", "heading")  // TODO UNTESTED in output position
 
+val Roll: AssignableCraftProperty = CraftProperty("roll")
+val Pitch: AssignableCraftProperty = CraftProperty("pitch")
+val Yaw: AssignableCraftProperty = CraftProperty("yaw")
+val Brake: AssignableCraftProperty = CraftProperty("brake")
+val Slider1: AssignableCraftProperty = CraftProperty("slider1")
+val Slider2: AssignableCraftProperty = CraftProperty("slider2")
+val Slider3: AssignableCraftProperty = CraftProperty("slider3")
+val Slider4: AssignableCraftProperty = CraftProperty("slider4")
+val TranslateForward: AssignableCraftProperty = CraftProperty("translateForward")
+val TranslateRight: AssignableCraftProperty = CraftProperty("translateRight")
+val TranslateUp: AssignableCraftProperty = CraftProperty("translateUp")
+val TranslationMode: AssignableCraftProperty = CraftProperty("translationMode")
+
+
 // Heading
 /** @group Constants */
 val Retrograde = "Retrograde"
