@@ -30,8 +30,9 @@ private[rocketscompiler] case class LogMessage(text: Expr) extends Instruction
 
 
 sealed trait Expr  // TODO make typed
-case class BinaryOp(opType: String, sign: String, style: String, lhs: Expr, rhs: Expr) extends Expr
+case class Operator(opNodeType: String, op: String, style: String, operands: Expr*)(customParams: (String, String)*) extends Expr
 case class Not(rhs: Expr) extends Expr
 case class Constant[T](style: String, x: T) extends Expr
 case class CraftProperty(name: String, style: String, setterName: String = "") extends Expr
 case class VarRef(variableName: String, list: Boolean, local: Boolean) extends Expr
+case class Vector(x: Expr, y: Expr, z: Expr) extends Expr

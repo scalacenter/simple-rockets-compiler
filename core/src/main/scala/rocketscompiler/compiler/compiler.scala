@@ -91,6 +91,10 @@ private[rocketscompiler] def compile(e: Expr): String = e match
     |  ${compile(lhs)}
     |  ${compile(rhs)}
     |</$opType>""".stripMargin
+  case MathFunction(name, arg) => s"""
+    |<MathFunction function="$name" style="op-math">
+    |  ${compile(arg)}
+    |</MathFunction>""".stripMargin
   case Not(rhs) => s"""<Not style="op-not">${compile(rhs)}</Not>"""
   case Constant(_, x: Boolean) => s"""<Constant style="$x" bool="$x" />"""
   case Constant(tpe, x) => s"""<Constant $tpe="$x" />"""
