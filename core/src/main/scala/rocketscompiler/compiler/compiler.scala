@@ -86,10 +86,9 @@ private[rocketscompiler] def compile(i: Instruction): String = i match
 end compile
 
 private[rocketscompiler] def compile(e: Expr): String = e match
-  case BinaryOp(opType, sign, style, lhs, rhs) => s"""
-    |<$opType op="$sign" style="$style">
-    |  ${compile(lhs)}
-    |  ${compile(rhs)}
+  case Operator(opType, sign, style, operands, customParams) => s"""
+    |<$opType op="$sign" style="$style" ${customParams.map { (k, v) => s"$k=\"$v\"" }.mkString(" ")}>
+    |  ${operands.map(compile).mkString("\n  ")}
     |</$opType>""".stripMargin
   case MathFunction(name, arg) => s"""
     |<MathFunction function="$name" style="op-math">
