@@ -39,3 +39,4 @@ The scripting language is still a work in progress, so not everything is ported 
 Following are some materials to organise the Scala in Science workshop:
 
 - [Presentation](https://docs.google.com/presentation/d/1tDTqdbgliSJ_D4Vg3D10M-wf3HoTTkweLljl1eEbjNI/edit?usp=sharing)
+- [Blog Article](https://akmetiuk.com/posts/2022-02-19-launching-rockets.html) on how to use it to get to orbit.
