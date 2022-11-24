@@ -34,3 +34,8 @@ Once you have the directory, you can explicitly specify it when writin a program
 
 ## Documentation
 The scripting language is still a work in progress, so not everything is ported yet from the game's built-in language. See the complete list of what's available [here](https://javadoc.io/doc/com.akmetiuk/simple-rockets-compiler_3/latest/rocketscompiler.html).
+
+## Workshop
+Following are some materials to organise the Scala in Science workshop:
+
+- [Presentation](https://docs.google.com/presentation/d/1tDTqdbgliSJ_D4Vg3D10M-wf3HoTTkweLljl1eEbjNI/edit?usp=sharing)
