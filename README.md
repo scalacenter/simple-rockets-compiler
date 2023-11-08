@@ -41,3 +41,4 @@ Following are some materials to organise the Scala in Science workshop:
 - [Presentation](https://docs.google.com/presentation/d/1tDTqdbgliSJ_D4Vg3D10M-wf3HoTTkweLljl1eEbjNI/edit?usp=sharing)
 - [Blog Article](https://akmetiuk.com/posts/2022-02-19-launching-rockets.html) on how to use it to get to orbit.
 - [Low Flyer Challenge Spacecraft](https://www.simplerockets.com/c/D6U5n9/SC-Low-Flyer-Challenge)
+- [Scala Setup on EPFL computers](https://youtu.be/MRiLZ5fRkMI) - this video details how you can set up the Scala environment on an EPFL computer.
